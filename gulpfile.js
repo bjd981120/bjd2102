@@ -25,6 +25,7 @@
 const gulp = require('gulp');
 const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass');
+const cssnano = require('gulp-cssnano');
 const rename = require('gulp-rename');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
@@ -46,6 +47,14 @@ function fnHTML() {
     return gulp.src('./src/pages/*.html')
         .pipe(htmlmin())
         .pipe(gulp.dest('./dist/pages'));
+}
+//压缩css
+function css() {
+    return src('./src/sass/*.css')
+        // .pipe(sass())
+        .pipe(cssnano())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(dest('./dist/css'));
 }
 //压缩scss
 function fnSass() {
@@ -86,3 +95,4 @@ exports.sass = fnSass;
 exports.js = fnJS;
 exports.default = fnWatch;
 exports.img = fnImg;
+exports.css = css;
